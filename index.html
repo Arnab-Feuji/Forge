@@ -1,0 +1,95 @@
+        <!DOCTYPE html><html><head><meta charset="utf-8">
+        <title>Medical Chatbot</title>
+        <style>
+        :root {
+          --bg: #0A1F3D;
+          --panel: #132B4D;
+          --panel-border: #2A4670;
+          --txt: #F8F5F0;
+          --txt-muted: #9AA7BD;
+          --accent: #F26B21;
+          --teal: #2FB8A6;
+          --red: #E45858;
+        }
+        * { box-sizing: border-box; }
+        body { margin:0; font-family:Segoe UI,system-ui,sans-serif; background:linear-gradient(180deg,#081830,#0A1F3D); color:var(--txt); min-height:100vh; }
+        .card { max-width:720px; margin:40px auto; background:var(--panel); border:1px solid var(--panel-border); border-radius:12px; padding:24px; }
+        h2 { margin:0 0 6px; color:var(--accent); }
+        p { color:var(--txt-muted); line-height:1.5; }
+        .meta { font-size:12px; color:var(--txt-muted); margin-bottom:16px; }
+        .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+        .form-group label { display:block; font-size:11px; color:var(--txt-muted); margin-bottom:4px; }
+        input { width:100%; background:#0A1F3D; border:1px solid var(--panel-border); color:var(--txt); border-radius:8px; padding:10px; }
+        button { background:var(--accent); color:#1a0a02; border:0; border-radius:8px; padding:10px 16px; font-weight:700; cursor:pointer; }
+        .result-panel { margin-top:16px; background:#0A1F3D; border:1px solid var(--panel-border); border-radius:8px; padding:14px; }
+        pre { white-space:pre-wrap; font-size:12px; color:var(--txt); }
+        .status-badge { display:none; padding:4px 10px; border-radius:999px; font-size:11px; font-weight:700; margin-bottom:8px; }
+        .status-badge.approved { background:rgba(47,184,166,.2); color:var(--teal); }
+        .status-badge.declined { background:rgba(228,88,88,.2); color:var(--red); }
+        .chat-container { display:flex; flex-direction:column; gap:12px; }
+        .chat-messages { min-height:220px; max-height:360px; overflow:auto; background:#0A1F3D; border:1px solid var(--panel-border); border-radius:8px; padding:12px; }
+        .msg { margin-bottom:8px; padding:8px 10px; border-radius:8px; font-size:13px; }
+        .msg.user { background:rgba(242,107,33,.15); }
+        .msg.bot { background:rgba(47,184,166,.12); }
+        .msg.system { color:var(--txt-muted); font-size:12px; }
+        .chat-input-row { display:flex; gap:8px; }
+        </style>
+        </head><body>
+        <div class="card">
+          <h2>Medical Chatbot</h2>
+          <div class="meta">MC · Conversational AI Chatbot  · stories S1: Implement BR-1..n as testable rules · S2: Decision + reasons response · S3: Decision API + audit log · ACs AC-1, AC-2, AC-3, AC-4</div>
+          <p>Please develop a Medical Chatbot application based on 5 Agents like - Cancer Care, Diabetes, Mental Illness, Cardio & Respiratory
+	Consider CDC & PubMed as RAG Database
+	Add features like chat message download button, Prescription download button, Mike button, Multimodal, Multilingual - Hindi, English & Spanish</p>
+
+        <div class="chat-container">
+          <div class="chat-messages" id="chatMsgs">
+            <div class="msg system">Welcome to Medical Chatbot. Stories: S1: Implement BR-1..n as testable rules · S2: Decision + reasons response · S3: Decision API + audit log · ACs: AC-1, AC-2, AC-3, AC-4</div>
+          </div>
+          <div class="chat-input-row">
+            <input id="inp" placeholder="Ask about a story, rule, or domain..." onkeydown="if(event.key==='Enter') go()">
+            <button onclick="go()">Send</button>
+          </div>
+        </div>
+
+          <div class="result-panel" id="resultPanel" style="display:none;">
+            <div class="status-badge" id="statusBadge" style="display:none;"></div>
+            <div id="reasonText" style="margin-bottom:14px; color:var(--txt-muted); font-size:14px;"></div>
+            <pre id="out"></pre>
+          </div>
+        </div>
+        <script>
+
+        async function go() {
+          const input = document.getElementById('inp');
+          const text = input.value.trim();
+          if (!text) return;
+          const msgs = document.getElementById('chatMsgs');
+          const userDiv = document.createElement('div');
+          userDiv.className = 'msg user';
+          userDiv.textContent = text;
+          msgs.appendChild(userDiv);
+          input.value = '';
+          msgs.scrollTop = msgs.scrollHeight;
+          try {
+            const r = await fetch('/chat', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ message: text })
+            });
+            const data = await r.json();
+            const botDiv = document.createElement('div');
+            botDiv.className = 'msg bot';
+            botDiv.innerHTML = data.answer + (data.source ? ' <span style="font-size:10px; color:var(--txt-muted); display:block; margin-top:4px;">Source: ' + data.source + '</span>' : '');
+            msgs.appendChild(botDiv);
+            msgs.scrollTop = msgs.scrollHeight;
+          } catch(e) {
+            const errDiv = document.createElement('div');
+            errDiv.className = 'msg system';
+            errDiv.textContent = 'Error connecting to service.';
+            msgs.appendChild(errDiv);
+          }
+        }
+
+        </script>
+        </body></html>
