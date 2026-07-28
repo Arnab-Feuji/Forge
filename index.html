@@ -1,180 +1,92 @@
-<!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Medical Chatbot</title>
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<title>Fraud Modelling in Insurance Industry</title>
 <style>
 :root {
-  --bg:#0b1220; --panel:#121a2b; --panel2:#182238; --line:#2a3b5c;
-  --txt:#f4f7fb; --muted:#9aa8c0; --accent:#f26b21; --teal:#2fb8a6; --purple:#9f7bc7;
+  --bg: #0A1F3D;
+  --panel: #132B4D;
+  --panel-border: #2A4670;
+  --txt: #F8F5F0;
+  --txt-muted: #9AA7BD;
+  --accent: #F26B21;
+  --teal: #2FB8A6;
+  --red: #E45858;
 }
-* { box-sizing:border-box; }
-html,body { height:100%; margin:0; }
-body {
-  font-family:"Segoe UI", system-ui, sans-serif; color:var(--txt);
-  background:
-    radial-gradient(900px 420px at 10% -10%, rgba(242,107,33,.18), transparent 55%),
-    radial-gradient(700px 380px at 90% 0%, rgba(47,184,166,.12), transparent 50%),
-    linear-gradient(180deg,#08101d, var(--bg));
-}
-.portal { display:grid; grid-template-columns:280px 1fr; height:100vh; }
-.sidebar {
-  border-right:1px solid var(--line); background:rgba(18,26,43,.92);
-  padding:18px 16px; display:flex; flex-direction:column; gap:14px; overflow:auto;
-}
-.brand { font-size:22px; font-weight:800; color:var(--accent); letter-spacing:-.4px; }
-.blurb { font-size:12px; color:var(--muted); line-height:1.45; }
-.section-label { font-size:10px; letter-spacing:1.6px; text-transform:uppercase; color:var(--muted); font-weight:700; }
-.agent-btn {
-  width:100%; text-align:left; background:var(--panel2); color:var(--txt);
-  border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-top:8px;
-  cursor:pointer; font-size:13px;
-}
-.agent-btn.active { border-color:var(--accent); color:var(--accent); }
-.main { display:flex; flex-direction:column; min-width:0; }
-.topbar {
-  display:flex; align-items:center; justify-content:space-between; gap:12px;
-  padding:14px 18px; border-bottom:1px solid var(--line); background:rgba(18,26,43,.75);
-}
-.topbar h1 { margin:0; font-size:16px; font-weight:700; }
-.top-actions { display:flex; gap:8px; flex-wrap:wrap; }
-.ghost {
-  background:transparent; color:var(--txt); border:1px solid var(--line);
-  border-radius:8px; padding:8px 10px; cursor:pointer; font-size:12px;
-}
-.messages {
-  flex:1; overflow:auto; padding:22px 18px 12px; display:flex; flex-direction:column; gap:12px;
-}
-.msg { max-width:780px; width:min(780px,92%); padding:12px 14px; border-radius:14px; line-height:1.55; font-size:14px; }
-.msg.user { align-self:flex-end; background:rgba(242,107,33,.16); border:1px solid rgba(242,107,33,.28); }
-.msg.bot { align-self:flex-start; background:rgba(47,184,166,.10); border:1px solid rgba(47,184,166,.25); }
-.msg.system { align-self:center; color:var(--muted); font-size:12px; background:transparent; border:0; }
-.meta-line { margin-top:8px; font-size:11px; color:var(--muted); }
-.cite { display:inline-block; margin-right:6px; padding:2px 7px; border-radius:999px; background:rgba(159,123,199,.15); color:#d7c4f2; }
-.composer-wrap { border-top:1px solid var(--line); padding:12px 16px 16px; background:rgba(18,26,43,.9); }
-.composer {
-  display:grid; grid-template-columns:auto auto 1fr auto; gap:8px; align-items:end;
-  background:var(--panel2); border:1px solid var(--line); border-radius:14px; padding:10px;
-}
-textarea {
-  width:100%; min-height:48px; max-height:140px; resize:vertical; border:0; outline:none;
-  background:transparent; color:var(--txt); font:inherit; padding:8px 4px;
-}
-.icon-btn, .send { border:0; border-radius:10px; padding:10px 12px; cursor:pointer; font-weight:700; font-size:12px; }
-.icon-btn { background:#0f1930; color:var(--txt); border:1px solid var(--line); }
-.send { background:var(--accent); color:#1a0a02; }
-select { background:#0f1930; color:var(--txt); border:1px solid var(--line); border-radius:8px; padding:8px; }
-@media (max-width:900px) { .portal { grid-template-columns:1fr; } .sidebar { display:none; } }
+* { box-sizing: border-box; }
+body { margin:0; font-family:Segoe UI,system-ui,sans-serif; background:linear-gradient(180deg,#081830,#0A1F3D); color:var(--txt); min-height:100vh; }
+.card { max-width:720px; margin:40px auto; background:var(--panel); border:1px solid var(--panel-border); border-radius:12px; padding:24px; }
+h2 { margin:0 0 6px; color:var(--accent); }
+p { color:var(--txt-muted); line-height:1.5; }
+.meta { font-size:12px; color:var(--txt-muted); margin-bottom:16px; }
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.form-group label { display:block; font-size:11px; color:var(--txt-muted); margin-bottom:4px; }
+input { width:100%; background:#0A1F3D; border:1px solid var(--panel-border); color:var(--txt); border-radius:8px; padding:10px; }
+button { background:var(--accent); color:#1a0a02; border:0; border-radius:8px; padding:10px 16px; font-weight:700; cursor:pointer; }
+.result-panel { margin-top:16px; background:#0A1F3D; border:1px solid var(--panel-border); border-radius:8px; padding:14px; }
+pre { white-space:pre-wrap; font-size:12px; color:var(--txt); }
+.status-badge { display:none; padding:4px 10px; border-radius:999px; font-size:11px; font-weight:700; margin-bottom:8px; }
+.status-badge.approved { background:rgba(47,184,166,.2); color:var(--teal); }
+.status-badge.declined { background:rgba(228,88,88,.2); color:var(--red); }
+.chat-container { display:flex; flex-direction:column; gap:12px; }
+.chat-messages { min-height:220px; max-height:360px; overflow:auto; background:#0A1F3D; border:1px solid var(--panel-border); border-radius:8px; padding:12px; }
+.msg { margin-bottom:8px; padding:8px 10px; border-radius:8px; font-size:13px; }
+.msg.user { background:rgba(242,107,33,.15); }
+.msg.bot { background:rgba(47,184,166,.12); }
+.msg.system { color:var(--txt-muted); font-size:12px; }
+.chat-input-row { display:flex; gap:8px; }
 </style>
-</head>
-<body>
-<div class="portal">
-  <aside class="sidebar">
-    <div class="brand">Medical Chatbot</div>
-    <div class="blurb">Develop a Medical Chatbot application with specialized agents for Cancer Care, Diabetes, Mental Illness, Cardiac, and Respiratory health. Integrate data from CDC and PubMed, with f</div>
-    <div class="section-label">Specialty agents</div>
-    <div id="agentList"><button type="button" class="agent-btn" data-agent="A1" onclick="selectAgent('A1')">Cancer Care</button><button type="button" class="agent-btn" data-agent="A2" onclick="selectAgent('A2')">Diabetes Agent</button><button type="button" class="agent-btn" data-agent="A3" onclick="selectAgent('A3')">Mental Illness Agent</button><button type="button" class="agent-btn" data-agent="A4" onclick="selectAgent('A4')">Cardiology Agent</button><button type="button" class="agent-btn" data-agent="A5" onclick="selectAgent('A5')">Respiratory Agent</button><button type="button" class="agent-btn" data-agent="A6" onclick="selectAgent('A6')">General Care Agent</button></div>
-    <div class="section-label" style="margin-top:10px;">RAG sources</div>
-    <div class="blurb">CDC, PubMed, WHO</div>
-    <div class="section-label" style="margin-top:10px;">Language</div>
-    <select id="langSelect"><option value="en">English</option><option value="hi">Hindi</option><option value="es">Spanish</option></select>
-  </aside>
-  <section class="main">
-    <div class="topbar">
-      <div>
-        <h1 id="activeAgentTitle">Ask anything</h1>
-        <div class="blurb" id="activeAgentSub">Specialty routing · citations · multilingual</div>
-      </div>
-      <div class="top-actions">
-        <button class="ghost" type="button" onclick="downloadChat()">Download chat</button>
-        <button class="ghost" type="button" onclick="downloadRx()">Prescription sheet</button>
-      </div>
+</head><body>
+<div class="card">
+  <h2>Fraud Modelling in Insurance Industry</h2>
+  <div class="meta">FMIII · Fraud Modelling Application · stories S1: Implement BR-1..n as testable rules · S2: Decision + reasons response · S3: Decision API + audit log · ACs AC-1, AC-2, AC-3, AC-4</div>
+  <p>Fraud Modelling in Insurance Industry — patient-centric conversational assistant.</p>
+  <div class="form-grid">
+    <div class="form-group">
+      <label for="field_feature_a">Feature A</label>
+      <input id="field_feature_a" type="number" value="42.5" placeholder="Enter Feature A">
     </div>
-    <div class="messages" id="chatMsgs">
-      <div class="msg system">Welcome. Choose a specialty agent or just ask — answers vary by topic using CDC, PubMed, WHO-style guidance.</div>
+
+    <div class="form-group">
+      <label for="field_feature_b">Feature B</label>
+      <input id="field_feature_b" type="number" value="88.2" placeholder="Enter Feature B">
     </div>
-    <div class="composer-wrap">
-      <div class="composer">
-        <button class="icon-btn" type="button" title="Voice input" onclick="toggleMic()">Mic</button>
-        <label class="icon-btn" style="display:inline-block;" title="Attach image/file">
-          Img<input id="fileInput" type="file" accept="image/*,.pdf" style="display:none" onchange="onFile(this)">
-        </label>
-        <textarea id="inp" placeholder="Describe symptoms or ask for awareness guidance..." onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault(); go();}"></textarea>
-        <button class="send" type="button" onclick="go()">Send</button>
-      </div>
-      <div class="blurb" style="margin-top:8px;" id="attachNote"></div>
-    </div>
-  </section>
+    </div><button onclick="go()" style="width:100%; margin-top:10px;">Run demo</button>
+  <div class="result-panel" id="resultPanel" style="display:none;">
+    <div class="status-badge" id="statusBadge" style="display:none;"></div>
+    <div id="reasonText" style="margin-bottom:14px; color:var(--txt-muted); font-size:14px;"></div>
+    <pre id="out"></pre>
+  </div>
 </div>
 <script>
-const AGENTS = [{"id": "A1", "name": "Cancer Care", "domain": "Cancer Care", "persona": "caring, knowledgeable, patient-centric"}, {"id": "A2", "name": "Diabetes Agent", "domain": "Diabetes", "persona": "caring, knowledgeable, patient-centric"}, {"id": "A3", "name": "Mental Illness Agent", "domain": "Mental Illness", "persona": "caring, knowledgeable, patient-centric"}, {"id": "A4", "name": "Cardiology Agent", "domain": "Cardiology", "persona": "caring, knowledgeable, patient-centric"}, {"id": "A5", "name": "Respiratory Agent", "domain": "Respiratory", "persona": "caring, knowledgeable, patient-centric"}, {"id": "A6", "name": "General Care Agent", "domain": "General Care", "persona": "caring, knowledgeable, patient-centric"}];
-let activeAgent = (AGENTS[0] && AGENTS[0].id) || null;
-let lastPrescription = null;
-let transcript = [];
-let attachmentNote = null;
-let recognizing = false;
-let recognition = null;
-
-function selectAgent(id) {
-  activeAgent = id;
-  document.querySelectorAll('.agent-btn').forEach(b => b.classList.toggle('active', b.dataset.agent === id));
-  const a = AGENTS.find(x => x.id === id);
-  if (a) {
-    document.getElementById('activeAgentTitle').textContent = a.name;
-    document.getElementById('activeAgentSub').textContent = (a.domain || '') + ' · ' + (a.persona || 'patient-centric');
-  }
-}
-if (activeAgent) selectAgent(activeAgent);
-
-function pushMsg(role, html, meta) {
-  const msgs = document.getElementById('chatMsgs');
-  const div = document.createElement('div');
-  div.className = 'msg ' + role;
-  div.innerHTML = html + (meta ? '<div class="meta-line">' + meta + '</div>' : '');
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-}
 
 async function go() {
-  const input = document.getElementById('inp');
-  const text = input.value.trim();
-  if (!text) return;
-  pushMsg('user', text.replace(/</g,'&lt;'));
-  transcript.push({role:'user', text});
-  input.value = '';
+  const payload = {feature_a: parseFloat(document.getElementById('field_feature_a').value || 0), feature_b: parseFloat(document.getElementById('field_feature_b').value || 0)};
+  const resPanel = document.getElementById('resultPanel');
+  const out = document.getElementById('out');
+  const status = document.getElementById('statusBadge');
+  const reasonDiv = document.getElementById('reasonText');
   try {
-    const r = await fetch('/chat', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        message: text,
-        language: document.getElementById('langSelect').value || 'en',
-        agent_id: activeAgent,
-        attachment_note: attachmentNote
-      })
+    const r = await fetch('/predict', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     });
     const data = await r.json();
-    if (data.agent && data.agent.id) selectAgent(data.agent.id);
-    lastPrescription = data.prescription || null;
-    const cites = (data.citations || []).map(c => '<span class="cite">' + (c.source||'') + ': ' + (c.title||c.id||'') + '</span>').join('');
-    const meta = 'Agent: ' + ((data.agent && data.agent.name) || 'Care') + ' · Source: ' + (data.source || '') + '<br>' + cites;
-    pushMsg('bot', (data.answer || '').replace(/</g,'&lt;'), meta);
-    transcript.push({role:'assistant', text: data.answer || '', meta});
-    attachmentNote = null;
-    document.getElementById('attachNote').textContent = '';
-  } catch (e) {
-    pushMsg('system', 'Error contacting assistant.');
+    resPanel.style.display = 'block';
+    out.textContent = JSON.stringify(data, null, 2);
+    if (data.decision) {
+      status.style.display = 'inline-flex';
+      status.className = 'status-badge ' + data.decision.toLowerCase();
+      status.textContent = data.decision;
+      reasonDiv.innerHTML = '<b>Evaluation:</b><br>' + (data.reasons || []).join('<br>');
+    } else {
+      status.style.display = 'none';
+      reasonDiv.textContent = 'Prediction complete for FMIII.';
+    }
+  } catch(e) {
+    resPanel.style.display = 'block';
+    out.textContent = 'Error: ' + e.message;
   }
 }
 
-function downloadChat() {
-  const lines = transcript.map(t => (t.role.toUpperCase() + ': ' + t.text));
-  const blob = new Blob([lines.join('\n\n')], {type:'text/plain'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'mc_chat.txt';
-  a.click();
-}
-
-function downloadRx()
-
-...[Preview truncated, download full file to view]...
+</script>
+</body></html>
