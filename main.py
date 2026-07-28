@@ -15,6 +15,9 @@ from domain import chat_answer, evaluate_rules, list_criteria, list_stories, met
 app = FastAPI(title="Medical Chatbot", version="1.0.0")
 class ChatIn(BaseModel):
     message: str
+    language: str | None = "en"
+    agent_id: str | None = None
+    attachment_note: str | None = None
 
 
 @app.get("/health")
@@ -46,7 +49,12 @@ def get_criteria():
 
 @app.post("/chat")
 def chat(inp: ChatIn):
-    return chat_answer(inp.message)
+    return chat_answer(
+        inp.message,
+        language=inp.language or "en",
+        agent_id=inp.agent_id,
+        attachment_note=inp.attachment_note,
+    )
 
 
 @app.get("/", response_class=HTMLResponse)
