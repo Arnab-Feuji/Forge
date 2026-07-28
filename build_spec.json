@@ -1,17 +1,17 @@
 {
   "version": 1,
-  "project_key": "MC",
-  "project_name": "Medical Chatbot",
-  "app_type": "Conversational AI Chatbot ",
-  "app_kind": "chatbot",
-  "summary": "Develop a Medical Chatbot application with specialized agents for Cancer Care, Diabetes, Mental Illness, Cardiac, and Respiratory health. Integrate data from CDC and PubMed, with features such as chat and prescription download buttons, voice recognition, and support for multimoda",
-  "requirement_text": "Organisation: Feuji Software Solution Pvt. Ltd.\nSegment: Healthcare\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPP TYPE: Conversational AI Chatbot\nSEGMENT: Healthcare\nPROBLEM: Develop a Medical Chatbot application with specialized agents for Cancer Care, Diabetes, Mental Illness, Cardiac, and Respiratory health. Integrate data from CDC and PubMed, with features such as chat and prescription download buttons, voice recognition, and support for multimodal and multilingual interactions in Hindi, English, and Spanish.\nTOOLS AND TECH STACKS: Python, TensorFlow, Node.js, MongoDB, RESTful APIs, WebSocket\nKNOWLEDGE BASE SOURCES: CDC, PubMed, WHO guidelines, peer-reviewed journals\nLLM FOUNDATION MODEL: GPT-4, MedPaLM\nPERSONA AND TONE: Empathetic, supportive, reliable, patient-centric, medically accurate\nSUPPORTED LANGUAGES: Hindi, English, Spanish\nFALLBACK MECHANISMS: Escalation to human agent, Email support, FAQs, 24/7 live chat support\nSPECIAL FEATURES: Downloadable chat messages, Prescription download functionality, Voice recognition (microphone button), Multimodal input support including text, voice, and images, Language translation\nEXPECTED OUTCOME: Deliver accurate and timely medical advice, ",
+  "project_key": "FMIII",
+  "project_name": "Fraud Modelling in Insurance Industry",
+  "app_type": "Fraud Modelling Application",
+  "app_kind": "fraud modelling application",
+  "summary": "Fraud Modelling in Insurance Industry \u2014 patient-centric conversational assistant.",
+  "requirement_text": "Organisation: Feuji Software Solution Pvt. Ltd.\nSegment: Insurence\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPPLICATION TYPE: Fraud Modelling Application\nINDUSTRY SEGMENT: Insurance\nPROBLEM STATEMENT: Develop a Fraud Modelling solution tailored for the insurance industry, utilizing a dependent variable 'Fraud_flag' and multiple independent variables. The aim is to generate a fraud score to be showcased to clients. Simulated data should be used to demonstrate the model's capabilities.\nTOOLS AND TECH STACKS: Python, TensorFlow, Pandas, Scikit-learn\nINDEPENDENT VARIABLES: Customer_age, Policy_duration, Claim_amount, Payment_history, Geographical_region\nDEPENDENT VARIABLE: Fraud_flag\nML ALGORITHMS: Random Forest, XGBoost, Logistic Regression\nEVALUATION METRICS: Accuracy, Precision, Recall, AUC-ROC\nEXPECTED OUTCOME: A fraud score ranging between 0 and 1, with an emphasis on achieving a high recall rate to effectively identify potential fraud.\nTARGET USER SPECIFICATION: Risk analysts, Fraud prevention officers\nREGULATORY CONSTRAINTS: HIPAA, GDPR, Compliance with local insurance regulations\nDATA REQUIREMENTS: Simulated datasets reflecting realistic customer and claim scenarios in the insurance ",
   "requestor": "ad_isi03@hotmail.com",
   "deploy_port": 8095,
   "api": {
     "health": "/health",
     "meta": "/meta",
-    "primary": "/chat",
+    "primary": "/decide",
     "stories": "/stories",
     "criteria": "/criteria"
   },
@@ -64,57 +64,33 @@
     }
   ],
   "backlog": {
-    "project": "MC",
-    "total_points": 30,
-    "epic_count": 4,
-    "story_count": 6
+    "project": "FMIII",
+    "total_points": 18,
+    "epic_count": 3,
+    "story_count": 3
   },
   "stories": [
     {
       "id": "S1",
-      "title": "Cancer Care specialty agent + RAG citations",
-      "points": 5,
-      "epic": "Conversational UX",
+      "title": "Implement BR-1..n as testable rules",
+      "points": 8,
+      "epic": "Rules Engine",
       "acceptance_criteria_ids": [],
       "acceptance_criteria": []
     },
     {
       "id": "S2",
-      "title": "Diabetes specialty agent + RAG citations",
+      "title": "Decision + reasons response",
       "points": 5,
-      "epic": "Conversational UX",
+      "epic": "Rules Engine",
       "acceptance_criteria_ids": [],
       "acceptance_criteria": []
     },
     {
       "id": "S3",
-      "title": "Mental Illness specialty agent + RAG citations",
+      "title": "Decision API + audit log",
       "points": 5,
-      "epic": "RAG & Specialty Agents",
-      "acceptance_criteria_ids": [],
-      "acceptance_criteria": []
-    },
-    {
-      "id": "S4",
-      "title": "Cardiology specialty agent + RAG citations",
-      "points": 5,
-      "epic": "RAG & Specialty Agents",
-      "acceptance_criteria_ids": [],
-      "acceptance_criteria": []
-    },
-    {
-      "id": "S5",
-      "title": "Respiratory specialty agent + RAG citations",
-      "points": 5,
-      "epic": "RAG & Specialty Agents",
-      "acceptance_criteria_ids": [],
-      "acceptance_criteria": []
-    },
-    {
-      "id": "S5",
-      "title": "Voice, multilingual, prescription export",
-      "points": 5,
-      "epic": "Safety & Multimodal",
+      "epic": "Service & Compliance",
       "acceptance_criteria_ids": [],
       "acceptance_criteria": []
     }
@@ -130,8 +106,8 @@
       "context"
     ],
     "services": [],
-    "render_url": "https://mermaid.ink/img/pako:eNp1k09v4jAQxb_KyKetCqvtvwuHldJAs1mIiNLQIi09uPEAlhIbOWYpqvrdOxN3tVUqLpHezO-NXybOq6isQjES69oeqq10HmbFygBEcfnj25-VyKXXaPxKPJ19lC-4HNfa6EpL86-RPFI1ylNIpMeDPFKdy_MipnoWw9xVW2y9k966jx4fAcPhT_KGCZ0gB6v76G5Cznu5Rn-EZC-dclLX7f-5Hc1YNyu54FTSVOgglg4h2oTYn2miAnxJ8FjLZ_TYniAvA3nF8akva0jr2mB7ir8K_HUXwylta7s5nmCvA3tDbIHtTndbOQXfsCyihOEogQK90_gXXQ-kHsvpLXFTYw81qg2OIB7HA8j3zxmqATz-mvdc01tWs1lGLnoCx7GmRYhts7Ptl1OIYblY8mtupYfcOt7NIu2Bi2XgwkvQl2Y5Webkm7zsyETR2H8OxUvPShTLjDNl-9rrxio6YggPVlcIqdnQRep5sizML3n_v2mhn_vfu6Fl2PpinJZ8VfdKeyj5TvU3zoQYiAZdI7USo1fht9jwT6JwLSmQeHt7B7rM9Ls=",
-    "excerpt": "%% Forge Solution Architecture \u2014 MC / Medical Chatbot\n%% Derived from SOW + BRD + Backlog + Brief (chatbot)\n%% Domains: Cancer Care, Diabetes, Mental Illness, Cardiology, Respiratory\n%% Stories: S1, S2, S3, S4, S5, S5\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Patient\"])\n  ACT1([\"Clinician\"])\n  GW[\"API Gateway\"]\n  ORC[\"MC Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  SAFE[\"Safety Guardrails\"]\n  ORC --> SAFE\n  AG1[\"Cancer Care Agent\"]\n  ORC --> AG1\n  AG2[\"Diabetes Agent\"]\n  ORC --> AG2\n  AG3[\"Mental Illness Agent\"]\n  ORC --> AG3\n  AG4[\"Cardiology Agent\"]\n  ORC --> AG4\n  AG5[\"Respiratory Agent\"]\n  ORC --> AG5\n  RAG[\"RAG Retriever\"]\n  ORC --> RAG\n  KB[\"Knowledge: CDC, PubMed, WHO\"]\n  ORC --> KB\n  LLM[\"LLM Response Composer\"]\n  ORC --> LLM\n  UX[\"Chat Portal UI\"]\n  ORC --> UX\n  UX --> ACT0\n  EXP[\"Export: Chat + Rx\"]\n  ORC --> EXP\n  MM[\"Multimodal - Voice Ingest\"]\n  ORC --> MM\n  EXT4[\"Jira\"]\n  ORC -.-> EXT4\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant User\n  participant Portal as \"Chat Portal\"\n  participant ORC as \"Orchestrator\"\n  participant SAFE as \"Guardrails\"\n  participant AG as \"Cancer Care Agent\"\n  participant RAG as \"RAG Retriever\"\n  participant KB as \"Knowledge Base\"\n  participant LLM as \"LLM Composer\"\n  User->>Portal: Cancer Care specialty agent + RAG citations\n  Portal->>ORC: chat message + language\n  ORC->>SAFE: safety / escalation check\n  ORC->>AG: route by specialty/domain\n  AG->>RAG: retrieve context\n  RAG->>KB: query CDC, PubMed\n  KB-->>R"
+    "render_url": "https://mermaid.ink/img/pako:eNptktFLwzAQxv-VI08KTtz2tgehuHZWVjvaOgXnQ0xvLpCmJU03xtj_bi5WlLLH-_L7vuTucmKiLpHN2FbVB7HjxsIy22iA4KG4u3rfsEBzdWzthn1c9_KY5GQJadP-qotXIlcxLLjFAz86neQ0e3B6lMRxDKkRO2yt4bY2_TFdAaPRvbP_hPjCmaiKcrIit51ByJ0J_0I9F-VUFVkQPzuyMFxqqb9gJRtUUg9pz5GQpPNwSQ24thXkaPZSIGwN70qoSFOUwptGScGtrPUgyPtJCNcB5YR7rmAECVojResHMHAQSHUeZuvQOVYGSyksuHkNSE_47Ldi7Mgnafh_5JbS3FGPTByykPax-7wATXpoSsNB3dYmchu-AE79Kl7mcUE77EppgYapBm_zBLthFZqKy5LNTszusKKvU-KWd8qy8_kbw7qw-g==",
+    "excerpt": "%% Forge Solution Architecture \u2014 FMIII / Fraud Modelling in Insurance Industry\n%% Derived from SOW + BRD + Backlog + Brief (fraud modelling application)\n%% Domains: Claims\n%% Stories: S1, S2, S3\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Analyst\"])\n  ACT1([\"ML Ops\"])\n  GW[\"API Gateway\"]\n  ORC[\"FMIII Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  FS[\"Feature Store\"]\n  ORC --> FS\n  TRAIN[\"Training Pipeline\"]\n  ORC --> TRAIN\n  MODEL[\"Model Service fraud modelling application\"]\n  ORC --> MODEL\n  EVAL[\"Eval - Metrics Gate\"]\n  ORC --> EVAL\n  SERVE[\"Predict API\"]\n  ORC --> SERVE\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"GitHub\"]\n  ORC -.-> EXT2\n  EXT3[\"TensorFlow\"]\n  ORC -.-> EXT3\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant User\n  participant API as \"Predict API\"\n  participant FS as \"Feature Store\"\n  participant MODEL as \"Model Service\"\n  participant EVAL as \"Metrics\"\n  User->>API: features\n  API->>FS: load feature vector\n  FS-->>API: X\n  API->>MODEL: predict y\n  MODEL-->>API: y_hat + score\n  API->>EVAL: record metric\n  API-->>User: prediction result\n\n%% ER\nerDiagram\n  FEATURE_A ||--o| DECISION_REASONS_RESPONSE : yields\n  FEATURE_A ||--o{ DECISION_API_AUDIT : logs\n  FEATURE_A ||--o{ FEATURE_B : includes\n  FEATURE_A ||--o{ IMPLEMENT_TESTABLE_RULES : includes\n  FEATURE_A ||--o{ AUDIT_EVENT : includes\n  FEATURE_A ||--o{ BACKLOG_STORY : traces\n  BACKLOG_STORY ||--o{ ACCEPTANCE_CRITERION : satisfies"
   },
   "modules": [
     "api",
@@ -160,50 +136,15 @@
   "output_fields": [],
   "rag_sources": [
     "CDC",
-    "PubMed",
-    "WHO"
+    "PubMed"
   ],
   "domains": [
-    "Cancer Care",
-    "Diabetes",
-    "Mental Illness",
-    "Cardiology",
-    "Respiratory"
+    "General Care"
   ],
   "agents": [
     {
       "id": "A1",
-      "name": "Cancer Care",
-      "domain": "Cancer Care",
-      "persona": "caring, knowledgeable, patient-centric"
-    },
-    {
-      "id": "A2",
-      "name": "Diabetes Agent",
-      "domain": "Diabetes",
-      "persona": "caring, knowledgeable, patient-centric"
-    },
-    {
-      "id": "A3",
-      "name": "Mental Illness Agent",
-      "domain": "Mental Illness",
-      "persona": "caring, knowledgeable, patient-centric"
-    },
-    {
-      "id": "A4",
-      "name": "Cardiology Agent",
-      "domain": "Cardiology",
-      "persona": "caring, knowledgeable, patient-centric"
-    },
-    {
-      "id": "A5",
-      "name": "Respiratory Agent",
-      "domain": "Respiratory",
-      "persona": "caring, knowledgeable, patient-centric"
-    },
-    {
-      "id": "A6",
-      "name": "General Care Agent",
+      "name": "General Care",
       "domain": "General Care",
       "persona": "caring, knowledgeable, patient-centric"
     }
@@ -215,16 +156,15 @@
   ],
   "features": {
     "chat_download": true,
-    "prescription_download": true,
-    "voice_input": true,
-    "multimodal": true,
-    "multilingual": true
+    "prescription_download": false,
+    "voice_input": false,
+    "multimodal": false,
+    "multilingual": false
   },
   "constraints": [],
   "nonfunctional": [],
   "escalation_phrases": [
-    "chest pain",
-    "can't breathe"
+    "fraud"
   ],
   "model": {},
   "demo_scope": {
@@ -232,9 +172,7 @@
     "story_ids": [
       "S1",
       "S2",
-      "S3",
-      "S4",
-      "S5"
+      "S3"
     ],
     "ac_ids": [
       "AC-1",
