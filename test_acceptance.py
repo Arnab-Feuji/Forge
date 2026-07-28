@@ -6,7 +6,7 @@ m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
 client = TestClient(m.app)
 
 PROJECT_KEY = 'MC'
-STORY_IDS = ['S1', 'S2', 'S3']
+STORY_IDS = ['S1', 'S2', 'S3', 'S4', 'S5', 'S5']
 AC_IDS = ['AC-1', 'AC-2', 'AC-3', 'AC-4']
 RULE_IDS = ['BR-1', 'BR-2', 'BR-3', 'BR-4']
 SAMPLE = {'feature_a': 42.5, 'feature_b': 88.2}
@@ -45,11 +45,18 @@ def test_criteria_endpoint():
         assert set(AC_IDS).issubset(got)
 
 def test_chat_responds_with_project_context():
-    r = client.post('/chat', json={'message': 'Implement BR-1..n as testable rules'})
+    r = client.post('/chat', json={'message': 'Cancer Care specialty agent + RAG citations'})
     assert r.status_code == 200
     body = r.json()
     assert 'answer' in body
-    assert body.get('source') in ('BUILD_SPEC_KB', 'PROJECT_FALLBACK', 'SAFETY')
+    assert body.get('source') in ('AGENT_RAG', 'BUILD_SPEC_KB', 'PROJECT_FALLBACK', 'SAFETY')
+    assert body.get('source') != 'PROJECT_FALLBACK' or 'assistant' in (body.get('answer') or '').lower()
+
+def test_chat_answers_vary_by_topic():
+    a = client.post('/chat', json={'message': 'cancer awareness tips'}).json().get('answer','')
+    b = client.post('/chat', json={'message': 'diabetes blood sugar basics'}).json().get('answer','')
+    assert a and b
+    assert a != b
 
 def test_chat_exposes_story_traceability():
     r = client.post('/chat', json={'message': 'MC'})
@@ -58,7 +65,7 @@ def test_chat_exposes_story_traceability():
         assert any(sid in (body.get('story_ids') or []) for sid in STORY_IDS)
 
 def test_safety_escalation_project_specific():
-    r = client.post('/chat', json={'message': "can't breathe"})
+    r = client.post('/chat', json={'message': 'chest pain'})
     assert r.json().get('source') == 'SAFETY'
 
 def test_ac_ac_1_listed():
