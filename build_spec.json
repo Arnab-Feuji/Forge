@@ -4,8 +4,8 @@
   "project_name": "Medical Chatbot",
   "app_type": "Conversational AI Chatbot ",
   "app_kind": "chatbot",
-  "summary": "Please develop a Medical Chatbot application based on 5 Agents like - Cancer Care, Diabetes, Mental Illness, Cardio & Respiratory\n\tConsider CDC & PubMed as RAG Database\n\tAdd features like chat message download button, Prescription download button, Mike button, Multimodal, Multilingual - Hindi, English & Spanish",
-  "requirement_text": "Organisation: Feuji Software Solution Pvt. Ltd.\nSegment: Healthcare\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPP TYPE: Conversational AI Chatbot\nSEGMENT: Healthcare\nPROBLEM: Develop a Medical Chatbot application featuring five specialty areas: Cancer Care, Diabetes, Mental Illness, Cardiology, and Respiratory Health. Utilize CDC and PubMed as primary Reference-as-a-Guide (RAG) databases. Incorporate features such as chat message and prescription downloads, voice input capability, and support for text, voice, and image modalities across multiple languages, including Hindi, English, and Spanish.\nTOOLS AND TECH STACKS: Python, FastAPI, React, PostgreSQL, TensorFlow\nKNOWLEDGE BASE SOURCES: CDC, PubMed, WHO guidelines, Clinical trials\nLLM FOUNDATION MODEL: GPT-4, BERT\nPERSONA AND TONE: Caring, knowledgeable, and patient-centric\nSUPPORTED LANGUAGES: English, Hindi, Spanish\nMULTIMODAL CAPABILITIES: Text, Voice, and Image understanding\nFALLBACK MECHANISMS: Escalate to human agent, Provide detailed error messages for user guidance\nEXPECTED OUTCOME: Deliver accurate and timely medical assistance, and streamline patient communications\nTARGET USER SPECIFICATION: Patients dealing with cancer, diabete",
+  "summary": "Develop a Medical Chatbot application with specialized agents for Cancer Care, Diabetes, Mental Illness, Cardiac, and Respiratory health. Integrate data from CDC and PubMed, with features such as chat and prescription download buttons, voice recognition, and support for multimoda",
+  "requirement_text": "Organisation: Feuji Software Solution Pvt. Ltd.\nSegment: Healthcare\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPP TYPE: Conversational AI Chatbot\nSEGMENT: Healthcare\nPROBLEM: Develop a Medical Chatbot application with specialized agents for Cancer Care, Diabetes, Mental Illness, Cardiac, and Respiratory health. Integrate data from CDC and PubMed, with features such as chat and prescription download buttons, voice recognition, and support for multimodal and multilingual interactions in Hindi, English, and Spanish.\nTOOLS AND TECH STACKS: Python, TensorFlow, Node.js, MongoDB, RESTful APIs, WebSocket\nKNOWLEDGE BASE SOURCES: CDC, PubMed, WHO guidelines, peer-reviewed journals\nLLM FOUNDATION MODEL: GPT-4, MedPaLM\nPERSONA AND TONE: Empathetic, supportive, reliable, patient-centric, medically accurate\nSUPPORTED LANGUAGES: Hindi, English, Spanish\nFALLBACK MECHANISMS: Escalation to human agent, Email support, FAQs, 24/7 live chat support\nSPECIAL FEATURES: Downloadable chat messages, Prescription download functionality, Voice recognition (microphone button), Multimodal input support including text, voice, and images, Language translation\nEXPECTED OUTCOME: Deliver accurate and timely medical advice, ",
   "requestor": "ad_isi03@hotmail.com",
   "deploy_port": 8095,
   "api": {
@@ -65,32 +65,56 @@
   ],
   "backlog": {
     "project": "MC",
-    "total_points": 18,
-    "epic_count": 3,
-    "story_count": 3
+    "total_points": 30,
+    "epic_count": 4,
+    "story_count": 6
   },
   "stories": [
     {
       "id": "S1",
-      "title": "Implement BR-1..n as testable rules",
-      "points": 8,
-      "epic": "Rules Engine",
+      "title": "Cancer Care specialty agent + RAG citations",
+      "points": 5,
+      "epic": "Conversational UX",
       "acceptance_criteria_ids": [],
       "acceptance_criteria": []
     },
     {
       "id": "S2",
-      "title": "Decision + reasons response",
+      "title": "Diabetes specialty agent + RAG citations",
       "points": 5,
-      "epic": "Rules Engine",
+      "epic": "Conversational UX",
       "acceptance_criteria_ids": [],
       "acceptance_criteria": []
     },
     {
       "id": "S3",
-      "title": "Decision API + audit log",
+      "title": "Mental Illness specialty agent + RAG citations",
       "points": 5,
-      "epic": "Service & Compliance",
+      "epic": "RAG & Specialty Agents",
+      "acceptance_criteria_ids": [],
+      "acceptance_criteria": []
+    },
+    {
+      "id": "S4",
+      "title": "Cardiology specialty agent + RAG citations",
+      "points": 5,
+      "epic": "RAG & Specialty Agents",
+      "acceptance_criteria_ids": [],
+      "acceptance_criteria": []
+    },
+    {
+      "id": "S5",
+      "title": "Respiratory specialty agent + RAG citations",
+      "points": 5,
+      "epic": "RAG & Specialty Agents",
+      "acceptance_criteria_ids": [],
+      "acceptance_criteria": []
+    },
+    {
+      "id": "S5",
+      "title": "Voice, multilingual, prescription export",
+      "points": 5,
+      "epic": "Safety & Multimodal",
       "acceptance_criteria_ids": [],
       "acceptance_criteria": []
     }
@@ -106,8 +130,8 @@
       "context"
     ],
     "services": [],
-    "render_url": "https://mermaid.ink/img/pako:eNpVz70KgzAUBeBXuWRqodK_zaEgHULBYgkUh9ThNrliaKxwjZUivnurm8sZzneWMwjTWBKxKH3Tmwo5QKoeb4B7S7zSUxZriKITyFwntwtIDNTjt5g2Mp8lU2edsamoDYyh4dn-5YznnVYU2NGHGLagErnkvZYdsmV0vl3KQafpFUr0_onmtbSjTjrrQiE2oiau0VkRDyJUVE9fLJXY-SDG8Qdt6UWF",
-    "excerpt": "%% C4 Context\nflowchart LR\n  User([User]) --> GW[API Gateway]\n  GW --> ORC[Orchestrator]\n  ORC --> C0[Retriever / RAG]\n  ORC --> C1[Guardrails]\n  ORC --> C2[LLM fallback]\n  ORC --> C3[Audit]\n\n%% Sequence\nsequenceDiagram\n  User->>ORC: message\n  ORC->>SAFE: guardrail check\n  ORC->>RAG: retrieve (sources)\n  RAG-->>ORC: passages + citation\n  ORC-->>User: answer + source\n\n%% ER\nerDiagram\n  MC_REQUEST ||--o| MC_RESPONSE : yields\n  MC_REQUEST ||--o{ AUDIT_EVENT : logs"
+    "render_url": "https://mermaid.ink/img/pako:eNp1k09v4jAQxb_KyKetCqvtvwuHldJAs1mIiNLQIi09uPEAlhIbOWYpqvrdOxN3tVUqLpHezO-NXybOq6isQjES69oeqq10HmbFygBEcfnj25-VyKXXaPxKPJ19lC-4HNfa6EpL86-RPFI1ylNIpMeDPFKdy_MipnoWw9xVW2y9k966jx4fAcPhT_KGCZ0gB6v76G5Cznu5Rn-EZC-dclLX7f-5Hc1YNyu54FTSVOgglg4h2oTYn2miAnxJ8FjLZ_TYniAvA3nF8akva0jr2mB7ir8K_HUXwylta7s5nmCvA3tDbIHtTndbOQXfsCyihOEogQK90_gXXQ-kHsvpLXFTYw81qg2OIB7HA8j3zxmqATz-mvdc01tWs1lGLnoCx7GmRYhts7Ptl1OIYblY8mtupYfcOt7NIu2Bi2XgwkvQl2Y5Webkm7zsyETR2H8OxUvPShTLjDNl-9rrxio6YggPVlcIqdnQRep5sizML3n_v2mhn_vfu6Fl2PpinJZ8VfdKeyj5TvU3zoQYiAZdI7USo1fht9jwT6JwLSmQeHt7B7rM9Ls=",
+    "excerpt": "%% Forge Solution Architecture \u2014 MC / Medical Chatbot\n%% Derived from SOW + BRD + Backlog + Brief (chatbot)\n%% Domains: Cancer Care, Diabetes, Mental Illness, Cardiology, Respiratory\n%% Stories: S1, S2, S3, S4, S5, S5\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Patient\"])\n  ACT1([\"Clinician\"])\n  GW[\"API Gateway\"]\n  ORC[\"MC Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  SAFE[\"Safety Guardrails\"]\n  ORC --> SAFE\n  AG1[\"Cancer Care Agent\"]\n  ORC --> AG1\n  AG2[\"Diabetes Agent\"]\n  ORC --> AG2\n  AG3[\"Mental Illness Agent\"]\n  ORC --> AG3\n  AG4[\"Cardiology Agent\"]\n  ORC --> AG4\n  AG5[\"Respiratory Agent\"]\n  ORC --> AG5\n  RAG[\"RAG Retriever\"]\n  ORC --> RAG\n  KB[\"Knowledge: CDC, PubMed, WHO\"]\n  ORC --> KB\n  LLM[\"LLM Response Composer\"]\n  ORC --> LLM\n  UX[\"Chat Portal UI\"]\n  ORC --> UX\n  UX --> ACT0\n  EXP[\"Export: Chat + Rx\"]\n  ORC --> EXP\n  MM[\"Multimodal - Voice Ingest\"]\n  ORC --> MM\n  EXT4[\"Jira\"]\n  ORC -.-> EXT4\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant User\n  participant Portal as \"Chat Portal\"\n  participant ORC as \"Orchestrator\"\n  participant SAFE as \"Guardrails\"\n  participant AG as \"Cancer Care Agent\"\n  participant RAG as \"RAG Retriever\"\n  participant KB as \"Knowledge Base\"\n  participant LLM as \"LLM Composer\"\n  User->>Portal: Cancer Care specialty agent + RAG citations\n  Portal->>ORC: chat message + language\n  ORC->>SAFE: safety / escalation check\n  ORC->>AG: route by specialty/domain\n  AG->>RAG: retrieve context\n  RAG->>KB: query CDC, PubMed\n  KB-->>R"
   },
   "modules": [
     "api",
@@ -134,13 +158,73 @@
     "feature_b": 88.2
   },
   "output_fields": [],
-  "rag_sources": [],
-  "domains": [],
+  "rag_sources": [
+    "CDC",
+    "PubMed",
+    "WHO"
+  ],
+  "domains": [
+    "Cancer Care",
+    "Diabetes",
+    "Mental Illness",
+    "Cardiology",
+    "Respiratory"
+  ],
+  "agents": [
+    {
+      "id": "A1",
+      "name": "Cancer Care",
+      "domain": "Cancer Care",
+      "persona": "caring, knowledgeable, patient-centric"
+    },
+    {
+      "id": "A2",
+      "name": "Diabetes Agent",
+      "domain": "Diabetes",
+      "persona": "caring, knowledgeable, patient-centric"
+    },
+    {
+      "id": "A3",
+      "name": "Mental Illness Agent",
+      "domain": "Mental Illness",
+      "persona": "caring, knowledgeable, patient-centric"
+    },
+    {
+      "id": "A4",
+      "name": "Cardiology Agent",
+      "domain": "Cardiology",
+      "persona": "caring, knowledgeable, patient-centric"
+    },
+    {
+      "id": "A5",
+      "name": "Respiratory Agent",
+      "domain": "Respiratory",
+      "persona": "caring, knowledgeable, patient-centric"
+    },
+    {
+      "id": "A6",
+      "name": "General Care Agent",
+      "domain": "General Care",
+      "persona": "caring, knowledgeable, patient-centric"
+    }
+  ],
+  "languages": [
+    "en",
+    "hi",
+    "es"
+  ],
+  "features": {
+    "chat_download": true,
+    "prescription_download": true,
+    "voice_input": true,
+    "multimodal": true,
+    "multilingual": true
+  },
   "constraints": [],
   "nonfunctional": [],
   "escalation_phrases": [
-    "can't breathe",
-    "fraud"
+    "chest pain",
+    "can't breathe"
   ],
   "model": {},
   "demo_scope": {
@@ -148,7 +232,9 @@
     "story_ids": [
       "S1",
       "S2",
-      "S3"
+      "S3",
+      "S4",
+      "S5"
     ],
     "ac_ids": [
       "AC-1",
